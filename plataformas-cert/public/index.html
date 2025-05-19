@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark"> <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Plataformas</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/17045/17045218.png" />
+  <link rel="stylesheet" href="shared/styles/base.css" />
+  <link rel="stylesheet" href="shared/styles/utilities.css" />
+  <link rel="stylesheet" href="dashboard.css" />
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+  <header>
+    <button class="menu-toggle" onclick="toggleSidebar()" title="Alternar menú lateral">
+      <i class="fas fa-bars"></i>
+    </button>
+    <h1 id="header-title-link" class="header-main-title" title="Ir a Inicio">Dashboard Plataformas</h1> 
+    
+    <span class="user-info">
+      Usuario: <strong id="user-name">Cargando...</strong> |
+      Rol: <strong id="user-role">Cargando...</strong>
+    </span>
+    
+    <label class="theme-switch" title="Cambiar tema">
+      <input type="checkbox" id="theme-toggle">
+      <span class="slider">
+        <span class="icon-sun"><i class="fas fa-sun"></i></span>
+        <span class="icon-moon"><i class="fas fa-moon"></i></span>
+      </span>
+    </label>
+  </header>
+  </header>
+
+  <div class="layout">
+    <nav id="sidebar" class="sidebar">
+      <ul id="sidebar-menu">
+        </ul>
+    </nav>
+    <main id="main-content" class="main-content">
+      <p class="initial-loading-message">Cargando dashboard...</p>
+    </main>
+  </div>
+
+  <script src="shared/authService.js"></script> 
+  <script src="main.js"></script>
+  </body>
+</html>

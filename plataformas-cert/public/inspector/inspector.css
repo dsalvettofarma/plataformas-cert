@@ -1,0 +1,234 @@
+/* public/inspector/inspector.css */
+
+/* Contenedor principal del inspector */
+.inspector-root {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* Espacio entre la tarjeta de filtros y la tabla */
+}
+
+/* Tarjeta de filtros y acciones */
+.inspector-root .inspector-card {
+  background-color: var(--color-surface);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-medium);
+  flex-shrink: 0; /* No se encoge */
+}
+
+.inspector-root .inspector-card h2 {
+  font-size: 1.75rem;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  color: var(--color-on-surface);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 500;
+}
+.inspector-root .inspector-card h2 img {
+  width: 40px; /* Ajustar según necesidad */
+  height: 40px;
+}
+
+.inspector-root .container { /* Contenedor de los inputs de filtro */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.inspector-root .container > div label { /* Estilo para los labels */
+  font-weight: 500;
+  margin-bottom: 0.35rem;
+  display: block;
+  font-size: 0.875rem;
+  color: var(--color-on-surface-variant);
+}
+
+/* Estilos para selects e inputs dentro del inspector */
+.inspector-root select,
+.inspector-root input[id="value-input"],
+.inspector-root input[type="date"] { /* <<<< AÑADIR input[type="date"] AQUÍ */
+  width: 100%;
+  background-color: var(--color-surface-container, #242424);
+  color: var(--color-on-surface, #e0e0e0);
+  border: 1px solid var(--color-outline, #424242);
+  padding: 0.6em 0.75em; /* Ajustar padding para consistencia, type=date puede necesitar más */
+  border-radius: var(--border-radius-small);
+  font-family: inherit; /* Asegurar que herede la fuente */
+  font-size: 0.875rem;  /* Consistencia de tamaño de fuente */
+  line-height: 1.4;   /* Mejorar altura de línea para inputs */
+}
+/* Estilo específico para el placeholder del texto de fecha si el navegador lo muestra */
+.inspector-root input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.8); /* Para que el icono del calendario se vea bien en tema oscuro */
+}
+/* Para Firefox, el icono del calendario es más difícil de estilizar directamente, 
+   pero el input en sí tomará los colores de fondo/texto. */
+
+.inspector-root select:focus,
+.inspector-root input[id="value-input"]:focus,
+.inspector-root input[type="date"]:focus {
+  border-color: var(--color-primary); /* Mantenemos el borde de foco */
+  box-shadow: 0 0 0 2px var(--color-primary); /* Mantenemos la sombra de foco */
+  /* No es necesario cambiar el background-color en focus a menos que quieras un efecto específico */
+}
+
+.inspector-root .acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.inspector-root .acciones button {
+  background-color: var(--color-secondary);
+  color: var(--color-on-secondary);
+  font-weight: 500;
+  padding: 0.6rem 1.1rem;
+  display: inline-flex; /* Para alinear iconos y texto en botones */
+  align-items: center;
+  gap: 0.5em; /* Espacio entre icono y texto */
+}
+.inspector-root .acciones button i {
+  font-size: 0.9em; /* Ajustar tamaño de icono si es necesario */
+}
+/* Estilo para el nuevo botón de limpiar fechas (opcional, para diferenciarlo) */
+.inspector-root .acciones button#btnLimpiarFechas {
+  background-color: var(--color-surface-container-hover, #3a3a3a); /* Un color diferente */
+  color: var(--color-on-surface-variant);
+}
+.inspector-root .acciones button#btnLimpiarFechas:hover {
+  background-color: var(--color-outline, #444);
+  filter: brightness(1.1);
+}
+.inspector-root .acciones button:hover {
+  background-color: var(--color-secondary-variant);
+}
+
+.inspector-root .acciones button#btnBuscar { /* Botón de búsqueda específico */
+  background-color: var(--color-tertiary);
+  color: var(--color-on-tertiary);
+}
+.inspector-root .acciones button#btnBuscar:hover {
+  background-color: var(--color-tertiary); /* Podrías usar una variable --color-tertiary-variant */
+  filter: brightness(0.9);
+}
+
+.inspector-root .mensaje-info {
+  font-style: italic;
+  color: var(--color-on-surface-variant);
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+}
+.inspector-root .mensaje-estado {
+  min-height: 1.5em; /* Evita saltos de layout */
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  color: var(--color-on-surface-variant);
+}
+
+/* Contenedor de la tabla para scroll */
+.inspector-root .inspector-table-container {
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-medium);
+  box-shadow: var(--box-shadow-medium);
+  overflow-x: auto; /* <<<<<<<========= REESTABLECER ESTO PARA EL SCROLL HORIZONTAL DE LA TABLA */
+  width: 100%;
+}
+
+.inspector-root table#results {
+  width: 100%; /* La tabla intenta ocupar el 100% de su contenedor */
+  min-width: max-content; /* IMPORTANTE: Para que la tabla se expanda según su contenido y fuerce el scroll-x */
+  border-collapse: collapse;
+  font-size: 0.875rem;
+    padding: 0.75rem 1rem;
+}
+
+.inspector-root table#results th,
+.inspector-root table#results td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--color-outline);
+  text-align: left;
+  white-space: nowrap; /* Para que las celdas no rompan línea y fuercen scroll horizontal */
+  vertical-align: middle; /* A veces ayuda a alinear verticalmente si las alturas de fila varían */
+}
+
+.inspector-root table#results th {
+  background-color: var(--color-surface-container); /* Fondo para encabezados de tabla */
+  color: var(--color-on-surface);
+  font-weight: 600;
+}
+/* Si tienes una columna de índice '#', puedes darle estilos específicos */
+.inspector-root table#results th.col-index,
+.inspector-root table#results td.col-index {
+    min-width: 20px; /* O el ancho que prefieras */
+    max-width: 50px;     /* Un ancho fijo puede ayudar */
+    text-align: center;
+    border-right: 1px solid var(--color-outline-variant, #555555); /* Usa una de tus variables de color para bordes */
+    position: relative; /* Para asegurar que el borde se vea bien con el contenido */
+}
+/* Ajuste para que los demás th no tengan borde izquierdo si el col-index es el primero */
+.inspector-root table#results th:not(.col-index) {
+    padding-left: 12px;
+    /* Podrías añadir un padding izquierdo mayor si es necesario para compensar visualmente */
+}
+/* Overlay Spinner (ya estaba bien, solo asegurar prefijo y variables) */
+.inspector-root #overlay-spinner {
+  position: absolute; /* Relativo al .inspector-root */
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.15); /* Un poco más oscuro */
+  backdrop-filter: blur(1px);
+  z-index: 1000; /* Encima de todo en el inspector */
+  /* display: flex; es controlado por JS */
+  align-items: center;
+  justify-content: center;
+}
+.inspector-root .spinner-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.inspector-root .spinner {
+  width: 50px;
+  height: 50px;
+  border: 6px solid var(--color-surface);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.inspector-root .overlay-text {
+  color: var(--color-on-surface);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Responsive: Ajustes menores dentro del inspector */
+@media (max-width: 768px) {
+  .inspector-root .inspector-card h2 {
+    font-size: 1.5rem;
+  }
+  .inspector-root .inspector-card h2 img {
+    width: 32px; height: 32px;
+  }
+  .inspector-root .container {
+    grid-template-columns: 1fr; /* Una columna en móviles */
+  }
+  .inspector-root .acciones {
+    flex-direction: column; /* Botones en columna */
+  }
+  .inspector-root .acciones button {
+    width: 100%;
+  }
+  .inspector-root table#results {
+    font-size: 0.8rem;
+  }
+  .inspector-root table#results th,
+  .inspector-root table#results td {
+    padding: 0.6rem 0.75rem;
+  }
+}

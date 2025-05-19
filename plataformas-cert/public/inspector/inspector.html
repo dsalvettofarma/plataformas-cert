@@ -1,0 +1,65 @@
+<div class="inspector-root">
+  <div id="overlay-spinner" class="overlay-spinner" style="display:none;">
+    <div class="spinner-container">
+      <div class="spinner"></div>
+      <div id="overlay-text" class="overlay-text">Cargando…</div>
+    </div>
+  </div>
+
+  <div class="inspector-card">
+    <h2>
+      Inspector de Pagos
+      <img src="https://i.pinimg.com/originals/29/94/3d/29943dea02925e3b1f046cee1b53a682.png" alt="Ícono" style="width: 50px; height: 50px; vertical-align: middle;">
+    </h2>
+    <div class="container">
+      <div>
+        <label for="sheet">Hoja:</label>
+        <select id="sheet"></select>
+      </div>
+      <div>
+        <label for="column">Columna:</label> <select id="column"></select>
+      </div>
+      <div>
+        <label for="value-input">Valor:</label> <input id="value-input" placeholder="CI, Nombre, Email...">
+      </div>
+      <div>
+        <label for="match-select">Tipo Búsqueda:</label> <select id="match-select">
+          <option value="contains">Contiene</option>
+          <option value="exact">Exacta</option>
+        </select>
+      </div>
+      
+      <div>
+        <label for="fecha-desde">Fecha Desde:</label>
+        <input type="date" id="fecha-desde" name="fecha-desde">
+      </div>
+      <div>
+        <label for="fecha-hasta">Fecha Hasta:</label>
+        <input type="date" id="fecha-hasta" name="fecha-hasta">
+      </div>
+      <div>
+        <label for="canal">Canal de venta:</label>
+        <select id="canal">
+          <option value="">Todos</option>
+          <option value="FARMASHOP">Web</option>
+          <option value="FARMASHOP_APP">App</option>
+        </select>
+      </div>
+    </div>
+    <p class="mensaje-info">Recordá precargar la hoja. El filtro de fecha se aplica sobre la hoja seleccionada. Los filtros de texto se aplican después del filtro de fecha.</p>
+    <div class="acciones">
+      <button onclick="cargarHojas()">📄 Refrescar hojas</button>
+      <button onclick="mostrarUltimo()">🕒 Último registro</button>
+      <button onclick="analizarAnulados()">🧾 Pagos anulados</button>
+      <button onclick="analizarErrores()">📊 Pagos rechazados</button>
+      <button id="btnPrecargar" onclick="precargar()">🔄 Precargar hoja</button>
+      <button id="btnBuscar" class="button-buscar" onclick="buscar()">🔍 Buscar</button>
+    </div>
+    <div id="estado" class="mensaje-estado"></div>
+  </div>
+
+  <div class="inspector-table-container">
+    <table id="results">
+        </table>
+  </div>
+</div>

@@ -1,0 +1,391 @@
+/* public/monitorAlertas/monitorAlertas.css */
+
+.monitor-alertas-root {
+  padding: 1rem; /* Espaciado interno si no lo da main-content */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Espacio entre secciones principales */
+  height: 100%; /* Para intentar usar el espacio de main-content */
+}
+
+.monitor-alertas-root .header-section .main-title {
+  font-size: 1.75rem; /* Usar clamp(1.5rem, 4vw, 1.75rem) para responsividad */
+  font-weight: 600;
+  color: var(--color-primary); /* Color primario del tema */
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.monitor-alertas-root .section-container {
+  background-color: var(--color-surface);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--box-shadow-medium);
+}
+
+.monitor-alertas-root .section-title {
+  font-size: 1.3rem; /* Usar clamp(1.1rem, 3vw, 1.3rem) */
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.monitor-alertas-root .section-title-alertas {
+  color: var(--color-error); /* Rojo para destacar "alertas" */
+}
+.monitor-alertas-root .section-title-historial {
+  color: var(--color-secondary); /* Azul/otro color para historial */
+}
+
+.monitor-alertas-root .alertas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.monitor-alertas-root .alerta-item {
+  background-color: var(--color-surface-container);
+  padding: 0.75rem 1rem;
+  border-radius: var(--border-radius-medium);
+  border-left: 4px solid var(--color-error); /* Borde distintivo para alertas */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.monitor-alertas-root .alerta-item p {
+  margin: 0.25rem 0;
+  font-size: 0.9rem;
+}
+.monitor-alertas-root .alerta-item .alerta-timestamp {
+  font-size: 0.8rem;
+  color: var(--color-on-surface-variant);
+}
+.monitor-alertas-root .alerta-item .alerta-asunto {
+  font-weight: 500;
+}
+.monitor-alertas-root .alerta-item .alerta-detalle-link {
+  font-size: 0.85rem;
+  color: var(--color-secondary);
+  text-decoration: underline;
+  cursor: pointer;
+}
+.monitor-alertas-root .alerta-item .alerta-detalle-link:hover {
+  color: var(--color-secondary-variant);
+}
+
+.monitor-alertas-root .status-message {
+  color: var(--color-on-surface-variant);
+  padding: 1rem;
+  text-align: center;
+  font-style: italic;
+}
+.monitor-alertas-root .status-message.error-message {
+  color: var(--color-error);
+  font-weight: 500;
+}
+.monitor-alertas-root .hidden {
+  display: none;
+}
+
+.monitor-alertas-root .section-divider {
+  border: none;
+  border-top: 1px solid var(--color-outline);
+  margin: 1rem 0; /* Ajusta el margen vertical de la línea */
+}
+
+.monitor-alertas-root .historial-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem; /* Espacio antes de la tabla */
+}
+
+.monitor-alertas-root .sheet-button {
+  background-color: var(--color-tertiary);
+  color: var(--color-on-tertiary);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-medium);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: background-color var(--transition-duration);
+}
+.monitor-alertas-root .sheet-button:hover {
+  background-color: var(--color-tertiary); /* Podrías usar una variable -variant */
+  filter: brightness(0.9);
+  color: var(--color-on-tertiary); /* Asegurar que el color del texto no cambie en hover */
+}
+.monitor-alertas-root .sheet-button i {
+  font-size: 0.9em; /* Ajustar tamaño del ícono si es necesario */
+}
+
+.monitor-alertas-root .table-responsive-container {
+  overflow-x: auto; /* Scroll horizontal para la tabla */
+  width: 100%;
+}
+
+.monitor-alertas-root .data-table {
+  width: 100%;
+  min-width: 600px; /* Ancho mínimo para que la tabla no se comprima demasiado */
+  border-collapse: collapse;
+  background-color: var(--color-surface-container); /* Fondo para la tabla en sí */
+  border-radius: var(--border-radius-medium); /* Redondear esquinas si el contenedor de scroll es el mismo */
+  overflow: hidden; /* Para que el border-radius se aplique bien a la tabla */
+}
+
+.monitor-alertas-root .data-table th,
+.monitor-alertas-root .data-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--color-outline);
+  font-size: 0.875rem;
+}
+.monitor-alertas-root .data-table th:last-child,
+.monitor-alertas-root .data-table td:last-child {
+    border-right: none;
+}
+.monitor-alertas-root .data-table td:last-child {
+    /* Podrías añadir text-align: right; o center; si es una columna de acciones */
+text-align: right;
+}
+
+
+.monitor-alertas-root .data-table thead tr {
+  background-color: var(--color-surface-container-hover); /* Un poco más oscuro para el encabezado */
+  color: var(--color-on-surface);
+  font-size: 0.8rem; /* Texto de encabezado un poco más pequeño */
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.monitor-alertas-root .data-table tbody tr:hover {
+  background-color: var(--color-surface-container-hover);
+}
+
+.monitor-alertas-root .data-table .col-number {
+  width: 50px;
+  text-align: center;
+}
+
+/* Estilos para estado visual en la tabla (ejemplos) */
+.monitor-alertas-root .data-table .estado-procesado {
+  color: var(--color-secondary); /* Verde o azul para éxito */
+  font-weight: 500;
+}
+.monitor-alertas-root .data-table .estado-error {
+  color: var(--color-error); /* Rojo para error */
+  font-weight: 500;
+}
+.monitor-alertas-root .data-table .revisado-si {
+   color: var(--color-success);  /* Un color para "Sí" */
+}
+.monitor-alertas-root .data-table .revisado-no {
+   color: var(--color-warning);  /* Un color para "No" */
+}
+
+/* Iconos de FontAwesome (asegúrate que FA esté cargado globalmente en index.html) */
+/* No es necesario cargarlo de nuevo aquí */
+
+.monitor-alertas-root .alertas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem; /* Espacio entre tarjetas de alerta */
+}
+
+.monitor-alertas-root .alerta-item {
+  background-color: var(--color-surface-container);
+  padding: 0.8rem 1.2rem; /* Ajustar padding */
+  border-radius: var(--border-radius-medium);
+  border-left: 5px solid var(--color-error); /* Borde izquierdo rojo más grueso */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+  display: flex; /* Para alinear contenido y botón */
+  justify-content: space-between;
+  align-items: center;
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out, max-height 0.5s ease-out; /* Para animación de salida */
+  max-height: 200px; /* Altura inicial para animación de colapso */
+  overflow: hidden;
+}
+
+.monitor-alertas-root .alerta-item.alerta-desvaneciendo.alerta-oculta {
+  opacity: 0;
+  transform: scale(0.95);
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: -1px; /* Para evitar saltos con bordes/márgenes */
+  border-width: 0; /* Ocultar bordes durante la animación */
+}
+
+
+.monitor-alertas-root .alerta-contenido {
+  flex-grow: 1;
+}
+
+.monitor-alertas-root .alerta-asunto-display {
+  font-weight: 500;
+  color: var(--color-on-surface);
+  font-size: 1rem; /* Tamaño principal para el asunto */
+  margin-bottom: 0.25rem;
+}
+
+.monitor-alertas-root .alerta-fecha-display {
+  font-size: 0.8rem;
+  color: var(--color-on-surface-variant);
+}
+
+.monitor-alertas-root .alerta-acciones {
+  flex-shrink: 0;
+  margin-left: 1rem;
+}
+
+.monitor-alertas-root .btn-marcar-revisado {
+  background-color: var(--color-primary); /* Un color que no sea el rojo de la alerta */
+  color: var(--color-on-primary);
+  border: none;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.monitor-alertas-root .btn-marcar-revisado:hover {
+  background-color: var(--color-primary-variant);
+}
+.monitor-alertas-root .btn-marcar-revisado i {
+  font-size: 0.9em; /* Icono un poco más pequeño que el texto */
+}
+.monitor-alertas-root .btn-marcar-revisado:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+
+.monitor-alertas-root .revisado-texto {
+  font-size: 0.8rem;
+  color: var(--color-secondary); /* Verde o azul para indicar "Revisado" */
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Estilos para el Modal de Detalle de Alerta */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.65); /* Semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Encima de otros contenidos */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0s linear 0.3s;
+}
+
+.modal-overlay:not(.hidden) {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.modal-dialog {
+  background-color: var(--color-surface, #fff); /* Usar variable de tema o blanco */
+  padding: 1.5rem 2rem;
+  border-radius: var(--border-radius-large, 8px);
+  box-shadow: var(--box-shadow-xlarge, 0 8px 24px rgba(0,0,0,0.2));
+  width: 90%;
+  max-width: 800px; /* Ancho máximo del modal */
+  max-height: 85vh; /* Altura máxima, permite scroll si es más alto */
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95);
+  transition: transform 0.3s ease-in-out;
+}
+
+.modal-overlay:not(.hidden) .modal-dialog {
+    transform: scale(1);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-outline, #eee);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--color-primary, #333);
+}
+
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--color-on-surface-variant, #777);
+  cursor: pointer;
+  padding: 0.25rem;
+}
+.modal-close-button:hover {
+  color: var(--color-error, #d9534f);
+}
+
+.modal-body-content {
+  overflow-y: auto; /* Habilita scroll si el contenido es muy largo */
+  white-space: pre-wrap; /* Conserva saltos de línea y espacios del email */
+  font-family: 'Menlo', 'Monaco', 'Consolas', "Courier New", monospace; /* Mejor para texto crudo */
+  font-size: 0.875rem; /* Ligeramente más pequeño */
+  line-height: 1.6;
+  color: var(--color-on-surface, #333);
+  margin-bottom: 1rem; /* Espacio si hay datos parseados debajo */
+}
+
+.modal-parsed-data {
+    /* Estilos para la sección de datos parseados (Fase 2) */
+    border-top: 1px solid var(--color-outline, #eee);
+    padding-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.highlighted-keyword {
+  background-color: rgba(255, 230, 100, 0.7); /* Amarillo claro semitransparente */
+  font-weight: bold;
+  padding: 0.1em 0.2em;
+  border-radius: 3px;
+  /* Para el subrayado con color: */
+  /* border-bottom: 2px solid var(--color-error, red); */ 
+  /* O usar text-decoration si prefieres: */
+  text-decoration: underline;
+  text-decoration-color: var(--color-error, red);
+  text-decoration-thickness: 1.5px; /* Ajusta según necesites */
+}
+
+/*PARSEO DE DATOS PARA MEJOR VISUAL*/
+/* En alertas.css */
+
+/* ... (tus otros estilos del modal) ... */
+
+.texto-destacado-modal {
+  background-color: #FFD700; /* Un amarillo dorado, por ejemplo */
+  color: #333; /* Color de texto oscuro para contraste */
+  font-weight: bold;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  /* O si prefieres solo cambiar el color del texto: */
+  /* color: var(--color-primary); */
+  /* font-weight: 600; */
+  /* text-decoration: underline; */
+}
+.texto-a-ocultar{
+  display: none;
+}

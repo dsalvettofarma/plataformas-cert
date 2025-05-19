@@ -1,0 +1,212 @@
+/* public/home/home.css */
+.home-root {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2.5rem;
+}
+
+.home-root .welcome-header {
+  width: 100%;
+  max-width: 960px;
+  margin-bottom: 0.5rem;
+}
+
+.home-root .current-date-display {
+  font-size: 0.95rem;
+  color: var(--color-on-surface-variant);
+  margin-top: 0.5rem; /* Espacio desde el título */
+  margin-bottom: 1.5rem;
+  border: 1px solid var(--color-outline);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius-medium);
+  background-color: var(--color-surface);
+  display: inline-block;
+}
+
+.home-root h1 {
+  font-size: clamp(1.8rem, 4vw, 2.1rem);
+  color: var(--color-primary);
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+}
+h2.subtitle {
+    font-size: clamp(1.8rem, 4vw, 1.5rem);
+    color: var(--color-primary);
+    margin-bottom: 0.3rem;
+    font-weight: 400;
+}
+
+h3{
+  font-size: 0.95rem;
+  color: var(--color-on-surface-variant);
+  margin-top: 0.5rem; /* Espacio desde el título */
+  margin-bottom: 1.5rem;
+}
+
+.home-root .welcome-header {
+  font-size: 1rem;
+  color: var(--color-on-surface-variant);
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.placeholder-hero-graph {
+  width: 100%;
+  max-width: 900px;
+  height: 280px;
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-large);
+  padding: 1.5rem;
+  box-shadow: var(--box-shadow-large);
+  border: 1px solid var(--color-outline-variant);
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.placeholder-hero-graph .placeholder-title {
+  width: 30%; /* Más corto para el gráfico principal */
+  height: 22px;
+  margin-bottom: 1rem;
+  align-self: flex-start; /* Título a la izquierda */
+}
+
+.placeholder-hero-graph .placeholder-chart-area {
+  flex-grow: 1;
+  width: 100%; /* Asegurar que ocupe todo el ancho del contenedor padre */
+}
+
+.placeholder-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.placeholder-card {
+  background-color: var(--color-surface);
+  border-radius: var(--border-radius-medium);
+  padding: 1.25rem;
+  min-height: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  box-shadow: var(--box-shadow-medium);
+  border: 1px solid var(--color-outline);
+}
+
+.placeholder-card.large {
+  grid-column: span 2;
+  min-height: 220px;
+}
+
+@media (max-width: 900px) {
+  .placeholder-card.large {
+    grid-column: span 1;
+  }
+}
+
+.loading-animation {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-container) 25%,
+    var(--color-surface-container-hover) 37%,
+    var(--color-surface-container) 62%
+  );
+  background-size: 400% 100%;
+  animation: loadingShimmer 2s infinite linear;
+  border-radius: var(--border-radius-small);
+}
+
+.placeholder-title {
+  width: 60%;
+  height: 20px;
+  margin-bottom: 0.5rem;
+}
+
+.placeholder-content {
+  width: 90%;
+  height: 15px;
+}
+
+.placeholder-content.short {
+  width: 70%;
+}
+
+.placeholder-content.medium {
+  width: 85%;
+  height: 30px;
+}
+
+.placeholder-chart-area {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+  padding: 10px 0 0 0;
+}
+
+.placeholder-chart-area .chart-bar {
+  width: 12%;
+  background-color: var(--color-surface-container-hover);
+  border-radius: var(--border-radius-small) var(--border-radius-small) 0 0;
+  animation: loadingBarHeight 1.8s infinite ease-in-out alternate;
+}
+
+.placeholder-chart-area.line-graph {
+  background-image: 
+    repeating-linear-gradient(var(--color-outline, #333) 0 1px, transparent 1px 100%),
+    repeating-linear-gradient(90deg, var(--color-outline, #333) 0 1px, transparent 1px 100%);
+  background-size: 100% 20%, 20% 100%; /* Grilla sutil */
+  position: relative;
+  overflow: hidden;
+}
+
+.placeholder-chart-area.line-graph .animated-line {
+  position: absolute;
+  left: 0;
+  bottom: 0; /* Línea pegada abajo del área del gráfico */
+  width: 100%;
+  height: 100%; /* SVG ocupa toda el área */
+  stroke-width: 2.5; /* Grosor de la línea */
+  stroke: var(--color-secondary); /* Color de la línea */
+  fill: none;
+  stroke-dasharray: 500; 
+  stroke-dashoffset: 500;
+  animation: drawLine 3s infinite alternate ease-in-out;
+}
+
+.placeholder-chart-area .chart-bar:nth-child(1) { animation-delay: 0s; }
+.placeholder-chart-area .chart-bar:nth-child(2) { animation-delay: 0.25s; }
+.placeholder-chart-area .chart-bar:nth-child(3) { animation-delay: 0.5s; }
+.placeholder-chart-area .chart-bar:nth-child(4) { animation-delay: 0.1s; }
+.placeholder-chart-area .chart-bar:nth-child(5) { animation-delay: 0.35s; }
+.placeholder-chart-area .chart-bar:nth-child(6) { animation-delay: 0.6s; }
+.placeholder-chart-area .chart-bar:nth-child(7) { animation-delay: 0.15s; }
+
+@keyframes loadingShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes loadingBarHeight {
+  0% { transform: scaleY(0.2); opacity: 0.6; }
+  100% { transform: scaleY(1); opacity: 1; }
+}
+
+@keyframes drawLine {
+  0% { stroke-dashoffset: 500; } /* Empieza "sin dibujar" */
+  50% { stroke-dashoffset: 0; }   /* Se dibuja completamente */
+  100% { stroke-dashoffset: -500; }/* Se "borra" hacia el otro lado */
+}
+
+.home-root .welcome-footer {
+  margin-top: 2.5rem;
+  font-size: 0.9rem;
+  color: var(--color-on-surface-variant);
+}

@@ -1,0 +1,146 @@
+/* public/shared/styles/base.css */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Paleta de Colores Primarios (Ejemplo Dark Theme) */
+  --color-primary: #7e57c2; /* Un morado más suave */
+  --color-primary-variant: #5e35b1; /* Más oscuro para hovers o énfasis */
+  --color-on-primary: #ffffff;
+
+  --color-secondary: #059ce3; /* Un azul claro */
+  --color-secondary-variant: #047cbd;
+  --color-on-secondary: #000000;
+
+  --color-tertiary: #ffab40; /* Naranja para acciones destacadas como "Buscar" */
+  --color-on-tertiary: #000000;
+
+  --color-background: #121212; /* Fondo principal oscuro */
+  --color-surface: #1e1e1e;    /* Superficies de componentes (cards, diálogos) */
+  --color-surface-container: #242424; /* Contenedores dentro de surface */
+  --color-surface-container-hover: #2c2c2c; /* Para hovers en listas, etc. */
+
+
+  --color-on-background: #e0e0e0; /* Texto sobre fondo */
+  --color-on-surface: #e0e0e0;    /* Texto sobre superficies */
+  --color-on-surface-variant: #b2b2b2; /* Texto secundario, placeholders */
+
+  --color-error: #b64156;
+  --color-on-error: #000000;
+
+  --color-outline: #424242; /* Bordes sutiles */
+  --color-outline-variant: #555555;
+
+  /* Tipografía */
+  --font-family-base: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+  --font-size-base: 16px;
+  --line-height-base: 1.6;
+
+  /* Radios y Sombras */
+  --border-radius-small: 4px;
+  --border-radius-medium: 8px;
+  --border-radius-large: 12px;
+  --box-shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --box-shadow-large: 0 8px 24px rgba(0, 0, 0, 0.2);
+
+  /* Transiciones */
+  --transition-duration: 0.2s;
+  --transition-timing-function: ease-in-out;
+}
+
+/* Configuración para modo Claro (si lo implementas con el toggle) */
+[data-theme="light"] {
+  --color-primary: #5c6bc0;
+  --color-primary-variant: #321d7b;
+  --color-on-primary: #ffffff;
+
+  --color-secondary: #29b6f6;
+  --color-secondary-variant: #039be5;
+  --color-on-secondary: #000000;
+
+  --color-tertiary: #ffa726;
+  --color-on-tertiary: #000000;
+
+  --color-background: #f5f5f5;
+  --color-surface: #ffffff;
+  --color-surface-container: #eeeeee;
+  --color-surface-container-hover: #e0e0e0;
+
+  --color-on-background: #212121;
+  --color-on-surface: #212121;
+  --color-on-surface-variant: #616161;
+
+  --color-error: #d32f2f;
+  --color-on-error: #ffffff;
+
+  --color-outline: #bdbdbd;
+  --color-outline-variant: #9e9e9e;
+}
+
+
+html {
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-on-background);
+  min-height: 100%; /* El body debe tener al menos la altura del viewport */
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: var(--color-secondary);
+  text-decoration: none;
+  transition: color var(--transition-duration) var(--transition-timing-function);
+}
+a:hover,
+a:focus {
+  color: var(--color-secondary-variant);
+  text-decoration: underline;
+}
+
+img, video {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
+  border-radius: var(--border-radius-small);
+  padding: 0.5em 1em;
+  border: 1px solid transparent;
+  transition: background-color var(--transition-duration) var(--transition-timing-function),
+              box-shadow var(--transition-duration) var(--transition-timing-function);
+}
+
+input, textarea, select {
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0.5em 0.75em;
+  border: 1px solid var(--color-outline);
+  border-radius: var(--border-radius-small);
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-variant);
+}
+
+ul, ol {
+  list-style: none;
+}

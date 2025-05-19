@@ -1,0 +1,66 @@
+
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<div class="monitor-alertas-root">
+  <div class="header-section">
+    <h1 class="main-title">Monitor de Alertas</h1>
+    </div>
+
+  <div id="alertas-positivas-container" class="section-container">
+    <h2 class="section-title section-title-alertas">Alertas Positivas Recientes</h2>
+    <div id="lista-alertas-content" class="alertas-list">
+      <p id="loading-alertas" class="status-message">Cargando alertas...</p>
+      <p id="no-alertas" class="status-message hidden">No hay alertas positivas recientes.</p>
+      <p id="error-alertas" class="status-message hidden error-message">Error al cargar las alertas.</p>
+      </div>
+  </div>
+
+  <hr class="section-divider">
+
+  <div id="registro-historico-container" class="section-container">
+    <div class="historial-header">
+      <h2 class="section-title section-title-historial">Historial de Correos Procesados</h2>
+      <a href="https://docs.google.com/spreadsheets/d/1L1KvMg-rD3Lq90e5lMW-KZhg-dHOrsF-pa5SnlhZ-WI/edit" id="sheet-link" class="sheet-button" target="_blank" rel="noopener noreferrer">
+        <i class="fas fa-external-link-alt"></i> Abrir Hoja de Cálculo
+      </a>
+    </div>
+
+    <div class="table-responsive-container">
+      <table id="tabla-historial" class="data-table">
+        <thead>
+          <tr>
+            <th class="col-number">#</th>
+            <th>Timestamp</th>
+            <th>Asunto</th>
+            <th>Estado</th>
+            <th>Revisado</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpo-tabla-historial">
+          <tr id="loading-historial-row">
+            <td colspan="5" class="status-message text-center">Cargando historial...</td>
+          </tr>
+          <tr id="no-historial-row" class="hidden">
+            <td colspan="5" class="status-message text-center">No hay historial disponible.</td>
+          </tr>
+          <tr id="error-historial-row" class="hidden">
+            <td colspan="5" class="status-message text-center error-message">Error al cargar el historial.</td>
+          </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="alertaDetalleModal" class="modal-overlay hidden">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <h3 id="modalDetalleTitulo">Detalle de la Alerta</h3>
+      <button id="modalDetalleCerrarBtn" class="modal-close-button" aria-label="Cerrar">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div id="modalDetalleCuerpo" class="modal-body-content">
+      </div>
+    <div id="modalDetalleDatosParseados" class="modal-parsed-data">
+        </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,349 @@
+/* public/configAlertas/configuracionAlertas.css */
+
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    margin: 0;
+    background-color: var(--color-background, #f4f7f9);
+    color: var(--color-on-background, #333);
+    line-height: 1.6;
+}
+
+.config-alertas-root {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header-section .main-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--color-primary, #007bff);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.toolbar-section {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn {
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--border-radius-medium, 6px);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  text-decoration: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary {
+  background-color: var(--color-primary, #007bff);
+  color: var(--color-on-primary, #fff);
+}
+.btn-primary:hover {
+  background-color: var(--color-primary-variant, #0056b3);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary, #6c757d);
+  color: var(--color-on-secondary, #fff);
+}
+.btn-secondary:hover {
+  background-color: var(--color-secondary-variant, #545b62);
+}
+.btn-danger {
+  background-color: var(--color-error, #dc3545);
+  color: var(--color-on-error, #fff);
+}
+.btn-danger:hover {
+  background-color: var(--color-error-variant, #b02a37);
+}
+.btn-small {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.8rem;
+}
+.btn-info {
+    background: none;
+    border: none;
+    color: var(--color-info, #17a2b8);
+    font-size: 1.1rem;
+    padding: 0.25rem;
+    margin-left: 0.5em;
+    cursor: pointer;
+}
+.btn-info:hover {
+    color: var(--color-info-variant, #117a8b);
+}
+
+
+.section-container {
+  background-color: var(--color-surface, #fff);
+  padding: 1.5rem;
+  border-radius: var(--border-radius-large, 8px);
+  box-shadow: var(--box-shadow-medium, 0 4px 12px rgba(0,0,0,0.1));
+}
+
+.section-title {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+  color: var(--color-on-surface, #333);
+}
+
+.reglas-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Responsive grid */
+  gap: 1rem;
+}
+
+.regla-item-card {
+  background-color: var(--color-surface-container, #f8f9fa);
+  padding: 1rem 1.25rem;
+  border-radius: var(--border-radius-medium, 6px);
+  box-shadow: var(--box-shadow-small, 0 2px 6px rgba(0,0,0,0.08));
+  border-left: 5px solid var(--color-primary, #007bff);
+  transition: box-shadow 0.2s ease;
+}
+.regla-item-card:hover {
+    box-shadow: var(--box-shadow-medium, 0 4px 12px rgba(0,0,0,0.12));
+}
+
+.regla-item-card .asunto-regla {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-on-surface);
+  margin-bottom: 0.3rem;
+}
+.regla-item-card .notas-regla {
+  font-size: 0.85rem;
+  color: var(--color-on-surface-variant, #6c757d);
+  margin-bottom: 0.75rem;
+  min-height: 2.5em; /* Para dar algo de espacio aunque esté vacío */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; /* Para WebKit/Blink */
+  line-clamp: 2;         /* Estándar (soporte puede variar) */
+  overflow: hidden;
+}
+.regla-item-card .info-regla {
+  font-size: 0.8rem;
+  color: #555;
+  margin-bottom: 0.75rem;
+}
+.regla-item-card .info-regla strong {
+    color: var(--color-on-surface);
+}
+.regla-item-card .activa-si {
+    color: var(--color-success, #28a745);
+    font-weight: bold;
+}
+.regla-item-card .activa-no {
+    color: var(--color-error, #dc3545);
+}
+
+.regla-acciones {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-outline, #eee);
+  display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+
+/* Estilos del Modal (reutilizables o específicos) */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+}
+.modal-overlay:not(.hidden) {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+.modal-dialog {
+  background-color: var(--color-surface, #fff);
+  padding: 1.5rem 2rem;
+  border-radius: var(--border-radius-large, 8px);
+  box-shadow: var(--box-shadow-xlarge, 0 8px 24px rgba(0,0,0,0.2));
+  width: 90%;
+  max-width: 650px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+.modal-dialog.modal-sm { /* Para el modal de info */
+    max-width: 500px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--color-outline, #eee);
+  padding-bottom: 0.75rem;
+  margin-bottom: 1rem;
+}
+.modal-header h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 1.75rem;
+  cursor: pointer;
+  color: #888;
+}
+.modal-close-button:hover{
+    color: #333;
+}
+
+.modal-body {
+    overflow-y: auto;
+    padding-right: 10px; /* Espacio para scrollbar si aparece */
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+.form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.3rem;
+  font-size: 0.9rem;
+}
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid var(--color-outline, #ccc);
+  border-radius: var(--border-radius-small, 4px);
+  font-size: 0.9rem;
+  box-sizing: border-box;
+}
+.form-group textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+.form-group input[type="text"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--color-primary, #007bff);
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+    outline: none;
+}
+.form-group small {
+    display: block;
+    margin-top: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--color-on-surface-variant, #6c757d);
+}
+
+#multiCondicionalInputs > div {
+    margin-bottom: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid var(--color-outline-variant, #e0e0e0);
+    border-radius: var(--border-radius-small);
+}
+#multiCondicionalInputs label { /* Labels dentro de multicondicional */
+    font-size: 0.85rem;
+    font-weight: normal;
+    color: var(--color-secondary);
+}
+.keyword-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+.keyword-input-group input {
+    flex-grow: 1;
+}
+
+.keywords-tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    padding-top: 0.3rem;
+}
+.keyword-tag {
+    background-color: var(--color-secondary-container, #e2e3e5);
+    color: var(--color-on-secondary-container, #333);
+    padding: 0.25rem 0.6rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    display: inline-flex;
+    align-items: center;
+}
+.keyword-tag .remove-keyword {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--color-error);
+}
+.keyword-tag .remove-keyword:hover {
+    filter: brightness(0.8);
+}
+
+
+.modal-actions {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--color-outline, #eee);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.hidden {
+  display: none !important;
+}
+.status-message {
+  color: var(--color-on-surface-variant, #6c757d);
+  padding: 1rem;
+  text-align: center;
+  font-style: italic;
+}
+.status-message.error-message {
+  color: var(--color-error, #dc3545);
+  font-weight: 500;
+}
+.subtle-divider {
+    border: none;
+    border-top: 1px dashed var(--color-outline-variant, #e0e0e0);
+    margin: 0.75rem 0;
+}
+
+.keyword-tag .remove-keyword {
+    margin-left: 0.5em;
+    cursor: pointer;
+    color: var(--color-error, #dc3545);
+    font-size: 0.9em; 
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+.keyword-tag .remove-keyword:hover {
+    color: var(--color-error-variant, #b02a37);
+}

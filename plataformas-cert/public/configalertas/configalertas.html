@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuración de Alertas</title>
+    <link rel="stylesheet" href="configalertas.css"> 
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+    <div class="config-alertas-root">
+        <div class="header-section">
+            <h1 class="main-title">Gestión de Reglas de Alerta</h1>
+        </div>
+
+        <div class="toolbar-section">
+            <button id="btnAnadirNuevaRegla" class="btn btn-primary">
+                <i class="fas fa-plus-circle"></i> Añadir Nueva Regla
+            </button>
+            <button id="btnRefrescarConfig" class="btn btn-secondary">
+                <i class="fas fa-sync-alt"></i> Refrescar
+            </button>
+        </div>
+
+        <div id="lista-reglas-container" class="section-container">
+            <h2 class="section-title">Reglas Actuales</h2>
+            <div id="lista-reglas-content" class="reglas-list">
+                <p id="loading-reglas" class="status-message">Cargando reglas...</p>
+                <p id="no-reglas" class="status-message hidden">No hay reglas de configuración definidas.</p>
+                <p id="error-reglas" class="status-message hidden error-message">Error al cargar las reglas.</p>
+                </div>
+        </div>
+    </div>
+
+    <div id="reglaModal" class="modal-overlay hidden">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3 id="modalReglaTitulo">Añadir/Editar Regla</h3>
+                <button id="modalReglaCerrarBtn" class="modal-close-button" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="formRegla">
+                    <input type="hidden" id="ruleRowNumber"> <input type="hidden" id="ruleOriginalIndex"> <div class="form-group">
+                        <label for="ruleAsunto">Asunto del Email (o parte de él):</label>
+                        <input type="text" id="ruleAsunto" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ruleTipoCondicion">Tipo de Condición:</label>
+                        <select id="ruleTipoCondicion">
+                            <option value="SiemprePositivo">Siempre Positivo</option>
+                            <option value="PalabraClaveEnCuerpo">Palabra Clave en Cuerpo</option>
+                            <option value="ExcluirSKU">Excluir SKU (Activa si otros SKU presentes)</option>
+                            <option value="MultiCondicional">Multi-Condicional (Activar/Excluir)</option>
+                        </select>
+                        <button type="button" id="btnInfoTipoCondicion" class="btn-info" title="Ayuda sobre Tipos de Condición"><i class="fas fa-info-circle"></i></button>
+                    </div>
+                    
+                    <div id="valorCondicionContainer" class="form-group">
+                        <label for="ruleValorCondicion">Valor de Condición:</label>
+                        <div id="valorCondicionInputArea">
+                             <input type="text" id="ruleValorCondicionSimple" placeholder="Valor o palabras separadas por coma">
+                             <div id="multiCondicionalInputs" class="hidden">
+                                <div>
+                                    <label>Palabras para Activar Alerta:</label>
+                                    <div class="keyword-input-group">
+                                        <input type="text" id="multiActivarInput" placeholder="Añadir palabra activadora">
+                                        <button type="button" id="btnAddActivarKeyword" class="btn btn-small">Añadir</button>
+                                    </div>
+                                    <div id="activarKeywordsList" class="keywords-tag-list"></div>
+                                </div>
+                                <hr class="subtle-divider">
+                                <div>
+                                    <label>Palabras para Excluir Alerta (si se activó):</label>
+                                    <div class="keyword-input-group">
+                                        <input type="text" id="multiExcluirInput" placeholder="Añadir palabra excluyente">
+                                        <button type="button" id="btnAddExcluirKeyword" class="btn btn-small">Añadir</button>
+                                    </div>
+                                    <div id="excluirKeywordsList" class="keywords-tag-list"></div>
+                                </div>
+                             </div>
+                        </div>
+                        <small id="valorCondicionHelpText">Formato específico según Tipo de Condición.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ruleActiva">Regla Activa:</label>
+                        <select id="ruleActiva">
+                            <option value="Sí">Sí</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ruleNotas">Notas (descripción de la regla):</label>
+                        <textarea id="ruleNotas" rows="3"></textarea>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" id="btnCancelarRegla" class="btn btn-secondary">Cancelar</button>
+                        <button type="submit" id="btnGuardarRegla" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="infoTipoCondicionModal" class="modal-overlay hidden">
+        <div class="modal-dialog modal-sm"> <div class="modal-header">
+                <h3 id="modalInfoTitulo">Ayuda: Tipos de Condición</h3>
+                <button id="modalInfoCerrarBtn" class="modal-close-button" aria-label="Cerrar">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body-content" id="modalInfoCuerpo">
+                <p><strong>SiemprePositivo:</strong> La alerta siempre se marcará como "Positivo" si el asunto coincide. No usa "Valor de Condición".</p>
+                <p><strong>PalabraClaveEnCuerpo:</strong> Se marca "Positivo" si alguna de las palabras clave (separadas por coma en "Valor de Condición") se encuentra en el cuerpo del email. Ejemplo: <code>error,fallo,urgente</code></p>
+                <p><strong>ExcluirSKU:</strong> Se usa para alertas de precios/SKUs. Se marca "Positivo" si se encuentran SKUs en el email y AL MENOS UNO de ellos NO está en la lista de "Valor de Condición" (SKUs "seguros" o de referencia, separados por coma). Ejemplo: <code>12345,67890</code> (si estos son SKUs que no deben alarmar por sí solos).</p>
+                <p><strong>MultiCondicional:</strong> Permite una lógica más compleja. "Valor de Condición" debe ser un JSON: <code>{"activar": ["kw1", "kw2"], "excluir": ["ex1", "ex2"]}</code>.
+                    <ul>
+                        <li>La alerta se activa si alguna palabra de la lista <code>"activar"</code> está en el email.</li>
+                        <li>Si la lista <code>"activar"</code> está vacía (<code>[]</code>), se considera activada por defecto.</li>
+                        <li>Si se activó, se revisa la lista <code>"excluir"</code>. Si alguna palabra de <code>"excluir"</code> está en el email, la alerta NO se marca como "Positivo".</li>
+                        <li>Si la lista <code>"excluir"</code> está vacía (<code>[]</code>), no se aplican exclusiones.</li>
+                    </ul>
+                   La interfaz te ayudará a construir este JSON automáticamente.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="configalertas.js"></script>
+</body>
+</html>

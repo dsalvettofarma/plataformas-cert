@@ -1,0 +1,158 @@
+/* public/login/login.css */
+
+/* Contenedor de página para centrar el formulario */
+.login-page-container {
+  display: flex;
+  align-items: center; /* Centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+  min-height: 100vh; /* Ocupar toda la altura */
+  padding: 1rem; /* Espacio por si el formulario es grande en pantallas pequeñas */
+  background-color: var(--color-background); /* Fondo oscuro general */
+}
+
+.login-container {
+  max-width: 380px; /* Un poco más de ancho */
+  width: 100%; /* Ocupar ancho disponible hasta el max-width */
+  margin: 0 auto; /* Centrado por si login-page-container no fuera flex */
+  padding: 2rem 2.5rem; /* Más padding vertical */
+  background-color: var(--color-surface); /* Fondo de la tarjeta de login */
+  border-radius: var(--border-radius-large); /* Bordes más redondeados */
+  box-shadow: var(--box-shadow-large); /* Sombra más pronunciada */
+  border: 1px solid var(--color-outline-variant); /* Borde sutil */
+}
+
+.login-container h2 {
+  margin-bottom: 2rem; /* Más espacio debajo del título */
+  color: var(--color-secondary); /* Título con color secundario */
+  font-size: 1.75rem; /* Tamaño del título */
+  font-weight: 500;
+  text-align: center;
+}
+
+.form-row {
+  margin-bottom: 1.5rem; /* Más espacio entre filas */
+  width: 100%;
+}
+
+label {
+  font-size: 0.9rem; /* Tamaño de label */
+  font-weight: 500;
+  color: var(--color-text-label, var(--color-on-surface-variant)); /* Color de label */
+  margin-bottom: 0.5rem; /* Espacio entre label e input */
+  display: block;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"] { /* Aplicar a todos los inputs de texto */
+  width: 100%;
+  padding: 0.75rem 1rem; /* Padding más generoso */
+  border: 1px solid var(--color-outline);
+  border-radius: var(--border-radius-medium);
+  background-color: var(--color-surface-container, var(--color-background)); /* Fondo del input */
+  color: var(--color-on-surface); /* Color del texto del input */
+  font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="email"]::placeholder,
+input[type="password"]::placeholder,
+input[type="text"]::placeholder {
+  color: var(--color-text-placeholder, #777); /* Color del placeholder */
+  opacity: 1; /* Asegurar visibilidad en todos los navegadores */
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  border-color: var(--color-outline-focus, var(--color-primary)); /* Borde en foco */
+  box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb, 126, 87, 194), 0.3); /* Sombra en foco, necesitas --color-primary-rgb */
+  /* Si no tienes --color-primary-rgb, usa un color sólido o quita el box-shadow */
+  /* box-shadow: 0 0 0 2px var(--color-primary); */
+}
+
+button { /* Estilo base para todos los botones del login */
+  width: 100%;
+  padding: 0.8rem 0;
+  margin-top: 0.5rem; /* Espacio arriba del botón */
+  background-color: var(--color-primary);
+  color: var(--color-on-primary);
+  font-weight: 500; /* Un poco menos bold que 'bold' */
+  border: none;
+  border-radius: var(--border-radius-medium);
+  font-size: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  cursor: pointer;
+}
+
+button:hover:not([disabled]) {
+  background-color: var(--color-primary-variant); /* Color de hover */
+  transform: translateY(-1px); /* Efecto sutil de elevación */
+}
+button:active:not([disabled]) {
+  transform: translateY(0px); /* Efecto de presión */
+}
+
+button[disabled] {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Botón secundario (Reenviar código) */
+#btnReenviar {
+  background-color: var(--color-surface-container, var(--color-outline)); /* Un color más apagado */
+  color: var(--color-on-surface);
+}
+#btnReenviar:hover:not([disabled]) {
+  background-color: var(--color-outline-variant);
+}
+
+
+.message-feedback { /* Antes #message */
+  margin-top: 1.25rem;
+  min-height: 1.5em; /* Para evitar saltos de layout */
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.9rem;
+  /* El color se establece por JS, pero podemos dar un default */
+  color: var(--color-text-message-info, var(--color-on-surface-variant));
+}
+/* Los colores específicos para success/error se manejan en login.js */
+/* pero podrías añadir clases si prefieres controlarlo con CSS */
+/* .message-feedback.success { color: var(--color-text-message-success); } */
+/* .message-feedback.error { color: var(--color-text-message-error); } */
+
+
+#code-form {
+  margin-top: 2rem; /* Más espacio antes del form de código */
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-outline-variant); /* Separador sutil */
+  width: 100%;
+  display: none; /* Controlado por JS */
+  animation: aparecer 0.3s ease-out;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(15px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Mejoras mobile */
+@media (max-width: 420px) {
+  .login-container {
+    padding: 1.5rem; /* Menos padding en móviles */
+    margin: 1rem; /* Margen para que no pegue a los bordes */
+  }
+  .login-container h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  input[type="email"],
+  input[type="password"],
+  input[type="text"],
+  button {
+    font-size: 0.95rem; /* Ligeramente más pequeño */
+  }
+}

@@ -1,0 +1,292 @@
+/* public/dashboard.css */
+
+/* 'body' ya está configurado como flex-column en base.css */
+
+header {
+  background-color: var(--color-primary-variant);
+  color: var(--color-on-primary);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  height: 60px; /* Altura fija */
+  flex-shrink: 0; /* No se encoge */
+  box-shadow: var(--box-shadow-medium);
+  z-index: 100; /* Encima del sidebar si hay superposición rara */
+}
+
+header h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.75rem;
+  cursor: pointer;
+  margin-right: 1rem;
+  padding: 0.25rem;
+}
+
+.user-info {
+  margin-left: auto;
+  font-size: 0.875rem;
+}
+.user-info strong {
+    font-weight: 500;
+}
+
+/* Switch de tema (mantener tu implementación o adaptar a variables) */
+.theme-switch {
+  position: relative;
+  width: 50px; /* Un poco más ancho para acomodar iconos si están dentro del slider */
+  height: 26px; /* Un poco más alto */
+  margin-left: 1rem;
+  display: flex; /* Usar flex para alinear el input y el slider */
+  align-items: center;
+  cursor: pointer; /* Hacer todo el label clickeable */
+}
+
+.theme-switch input { /* El checkbox real se oculta */
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+
+.theme-switch .slider {
+  position: relative; /* Cambiado de absolute para que los iconos puedan ser absolutos a él */
+  cursor: pointer;
+  width: 100%; /* Ocupa el ancho del .theme-switch */
+  height: 100%; /* Ocupa la altura del .theme-switch */
+  background-color: var(--color-surface-container, #666); /* Color base del slider */
+  transition: background-color 0.4s var(--transition-timing-function);
+  border-radius: 34px;
+  display: flex; /* Para alinear el pomo (before) e iconos */
+  align-items: center;
+}
+.theme-switch .slider::before { /* Este es el "pomo" que se desliza */
+  content: "";
+  position: absolute;
+  height: 20px; /* Tamaño del pomo */
+  width: 20px;  /* Tamaño del pomo */
+  left: 3px;    /* Posición inicial */
+  bottom: 3px;  /* Posición inicial */
+  background-color: white;
+  transition: transform 0.4s var(--transition-timing-function);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  z-index: 10; /* Pomo encima de los iconos fijos */
+}
+
+/* Estilo y posición de los iconos */
+.theme-switch .icon-sun,
+.theme-switch .icon-moon {
+  position: absolute; /* Posicionar absolutamente dentro del .slider */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.8rem; /* Tamaño del icono */
+  color: var(--color-primary); /* Color del icono, puedes ajustarlo */
+  transition: opacity 0.3s ease, color 0.3s ease;
+  z-index: 5; /* Iconos debajo del pomo */
+}
+
+.theme-switch .icon-sun {
+  left: 7px; /* Posición del icono de sol */
+  opacity: 0; /* Oculto por defecto */
+}
+
+.theme-switch .icon-moon {
+  right: 7px; /* Posición del icono de luna */
+  opacity: 1; /* Visible por defecto (asumiendo tema oscuro inicial) */
+}
+/* Cambios cuando el checkbox está marcado (modo claro activo) */
+.theme-switch input:checked + .slider {
+  background-color: var(--color-secondary); /* Color del slider en modo claro */
+}
+
+.theme-switch input:checked + .slider::before {
+  transform: translateX(24px); /* Mover el pomo a la derecha (50px total - 20px pomo - 3px margen izq - 3px margen der = 24px) */
+}
+/* Visibilidad de iconos basada en el checkbox (tema claro activo) */
+.theme-switch input:checked + .slider .icon-sun {
+  opacity: 1; /* Mostrar sol */
+  color: white; /* Color del icono sol sobre fondo claro del slider */
+}
+.theme-switch input:checked + .slider .icon-moon {
+  opacity: 0; /* Ocultar luna */
+}
+
+.layout {
+  display: flex;
+  flex-grow: 1; /* Ocupa el resto de la altura del body */
+  overflow: hidden; /* CLAVE: Evita que el layout se desborde */
+}
+
+.sidebar {
+  width: 250px;
+  background-color: var(--color-surface); /* Sidebar con color de superficie */
+  color: var(--color-on-surface);
+  border-right: 1px solid var(--color-outline);
+  flex-shrink: 0; /* No se encoge */
+  overflow-y: auto; /* Scroll si el menú es largo */
+  overflow-x: hidden;
+  transition: transform 0.3s var(--transition-timing-function);
+  transform: translateX(0); /* Visible por defecto */
+  z-index: 50; /* Por si acaso */
+  display: flex; /* Para usar flex-grow en .sidebar-nav */
+  flex-direction: column;
+}
+
+.sidebar.hidden {
+  transform: translateX(-100%); /* Se oculta completamente a la izquierda */
+  
+}
+/* Contenedor para los ítems al pie del sidebar */
+.sidebar-footer-items {
+  margin-top: auto; /* EMPUJA ESTOS ÍTEMS HACIA ABAJO */
+  padding-top: 0.5rem; /* Un poco de espacio arriba */
+  border-top: 1px solid var(--color-outline, #444); /* Línea divisoria sutil */
+}
+
+
+#sidebar-menu {
+  flex-grow: 1; /* Hace que la lista de ítems principales ocupe el espacio disponible */
+  overflow-y: auto; /* Scroll para los ítems principales si son muchos */
+}
+
+#sidebar-menu li {
+  padding: 0.85rem 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  font-size: 0.95rem;
+  border-left: 4px solid transparent;
+  transition: background-color var(--transition-duration), border-color var(--transition-duration);
+  gap: 15px;
+}
+
+#sidebar-menu li:hover {
+  background-color: var(--color-surface-container-hover);
+}
+
+#sidebar-menu li.active { /* Si implementas estado activo */
+  background-color: var(--color-primary-variant); /* Usar un color primario o secundario tenue */
+  color: var(--color-on-primary);
+  border-left-color: var(--color-secondary);
+  font-weight: 500;
+}
+
+/* Estilo específico para el botón de cerrar sesión, si quieres */
+#sidebar-menu li.logout-button {
+  color: var(--color-error, #cf6679); /* Color de error o un rojo para destacar */
+  /* margin-top: 1rem; */ /* Espacio extra si no usas .sidebar-footer-items */
+}
+#sidebar-menu li.logout-button:hover {
+  background-color: rgba(207, 102, 121, 0.15); /* Un hover con el color de error */
+  color: var(--color-error, #cf6679);
+}
+#sidebar-menu li.logout-button i {
+  color: var(--color-error, #cf6679); /* Mantener el color del icono */
+}
+#sidebar-menu li.logout-button:hover i {
+ color: var(--color-error, #cf6679);
+}
+
+.main-content {
+  flex-grow: 1; /* Ocupa el espacio restante */
+  background-color: var(--color-background); /* Fondo igual al body o ligeramente diferente */
+  padding: 1.5rem; /* Espaciado interno */
+  overflow-y: auto; /* CLAVE: El contenido principal siempre debe tener scroll vertical si es necesario */
+  overflow-x: hidden; /* Por defecto, las secciones no deben causar scroll horizontal aquí */
+}
+
+/* Estilo opcional para cuando una sección requiere explícitamente scroll horizontal */
+.main-content.section-allow-horizontal-scroll {
+    overflow-x: auto;
+}
+
+/* ============== Estilos para integrar panel ficticio/home  ==============*/
+
+header h1.header-main-title {
+  margin: 0; /* Puede que ya lo tengas */
+  font-size: 1.4rem; /* Ajusta según tu diseño */
+  font-weight: 500;
+  padding: 0.5rem; /* Para hacerlo un poco más grande y fácil de clickear */
+  border-radius: var(--border-radius-small);
+  cursor: pointer;
+  transition: background-color 0.2s var(--transition-timing-function), color 0.2s var(--transition-timing-function);
+}
+header h1.header-main-title:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Un hover sutil en tema oscuro */
+  color: var(--color-secondary); /* O un color de acento */
+}
+[data-theme="light"] header h1.header-main-title:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* Un hover sutil en tema claro */
+}
+
+
+/* Mensaje de carga inicial o de error dentro de main-content */
+.initial-loading-message {
+  padding: 3rem 1rem;
+  text-align: center;
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--color-on-surface-variant);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%; /* Para centrar verticalmente si main-content tiene altura */
+}
+
+.error-message-placeholder {
+    padding: 2rem;
+    text-align: center;
+    background-color: var(--color-surface-container, #2a2a2a); /* Fondo sutil para el mensaje */
+    border-radius: var(--border-radius-medium);
+    margin: 2rem auto; /* Centrar el bloque de error */
+    max-width: 600px;
+    color: var(--color-on-surface);
+    border: 1px solid var(--color-error, #cf6679);
+}
+.error-message-placeholder h2 {
+    margin-bottom: 0.75rem;
+    color: var(--color-error, #cf6679);
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.error-message-placeholder p {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+.error-message-placeholder em {
+    font-style: normal;
+    color: var(--color-on-surface-variant);
+    font-size: 0.9rem;
+    word-break: break-word; /* Para mensajes de error largos */
+}
+
+/* Asegúrate que tu .sidebar.hidden esté definido correctamente */
+/* Ejemplo:
+.sidebar.hidden {
+  transform: translateX(-100%);
+  width: 0; // Ocultar completamente
+}
+*/
+
+/* Estilos para el nav-label en el sidebar (para cuando se colapsa) */
+.sidebar .nav-label {
+    transition: opacity 0.1s ease-out;
+}
+.sidebar.hidden .nav-label, /* O .sidebar.collapsed si usas esa clase */
+.sidebar.collapsed .nav-label { 
+    opacity: 0;
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+}
